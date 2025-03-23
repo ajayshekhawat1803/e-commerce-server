@@ -4,16 +4,17 @@ import express from 'express';
 import cors from "cors";
 import mongoose from "mongoose";
 import authRouter from './Routers/authRouter.js';
-console.log("Env Variable: ", process.env.PORT);
 
 // Extracting variables from .env file
 const port = process.env.PORT || 8000;
 const mongoDbUrl = process.env.MONGO_URI || "mongodb://localhost:27017/E-Commerce-App";
 
 // Database connection
-const connection = mongoose.connect(process.env.MONGO_URI);
+const connection = mongoose.connect(mongoDbUrl);
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
 // Routes
 app.get("/", (req, res) => {
